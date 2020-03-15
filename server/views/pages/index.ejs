@@ -9,7 +9,27 @@
 </head>
 <body>
   <div id="container">
-    Hello world!
+    <header>
+      <h1>Chat Rooms</h1>
+    </header>
+    <main>
+      <div id="create-room-container">
+        <form id="create-room-form">
+          <input type="text" name="room-name" required/>
+          <button type="submit">Create a Room</button>
+        </form>
+      </div>
+      <div id="error-message">
+
+      </div>
+      <div class="rooms-container">
+        <% Object.keys(rooms).forEach(room => { %>
+          <div>
+            <%= room %>
+          </div>
+        <% }) %>
+      </div>
+    </main>
   </div>
   <script src="/js/home.js"></script>
 </body>
