@@ -2,6 +2,11 @@ const createRoomForm = document.getElementById('create-room-form');
 const errorMessage = document.getElementById('error-message');
 const roomsContainer = document.querySelector('.rooms-container');
 const roomsMessage = document.querySelector('.rooms-message');
+const userNameModal = document.querySelector('.username-modal');
+const userNameForm = document.getElementById('username-form');
+const cancelUserNameSelection = document.querySelector(".cancel-username");
+
+let selectedRoom = null;
 
 const socket = io('//:3000');
 
@@ -25,6 +30,18 @@ createRoomForm.addEventListener('submit', async e => {
   }
 })
 
+cancelUserNameSelection.addEventListener('click', () => {
+  userNameModal.classList.add('hidden');
+  selectedRoom = null;
+})
+
+roomsContainer.addEventListener('click', e => {
+  const room = e.target;
+  if(room.className !== 'room') return;
+  selectedRoom = room.textContent.trim();
+  userNameModal.classList.remove('hidden');
+})
+
 function addRoom( {roomName} ) {
   console.log("firing")
   if(roomsMessage) {
@@ -32,9 +49,6 @@ function addRoom( {roomName} ) {
   }
   const room = document.createElement('div');
   room.className = "room";
-  const anchor = document.createElement('a');
-  anchor.href = `/${roomName}`;
-  anchor.textContent = roomName;
-  room.appendChild(anchor);
+  room.textContent = roomName;
   roomsContainer.appendChild(room);
 }
