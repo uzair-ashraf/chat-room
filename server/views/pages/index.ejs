@@ -23,13 +23,26 @@
 
       </div>
       <div class="rooms-container">
-        <% Object.keys(rooms).forEach(room => { %>
-          <div class="room">
-            <a href=<%= room %>>
-              <%= room %>
-            </a>
-          </div>
-        <% }) %>
+        <%
+          const roomList = Object.keys(rooms);
+          if(!roomList.length) {
+            %>
+              <div class="rooms-message">
+                There are no rooms available
+              </div>
+            <%
+          } else {
+            roomList.forEach(room => {
+              %>
+                <div class="room">
+                <a href= <%= room %> >
+                  <%= room %>
+                </a>
+                </div>
+              <%
+            })
+          }
+        %>
       </div>
     </main>
   </div>
