@@ -13,14 +13,20 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 const rooms = {
   'room1' : {
-    connectedUsers: [],
-    messages: []
+    roomName: 'room1',
+    connectedUsers: ['thebearingedge', 'danewavy'],
+    messages: [
+      {sender: 'thebearingedge', message: 'sup bro'},
+      {sender: 'danewavy', message: 'nothin just on wave'}
+    ]
   },
   'room2': {
+    roomName: 'room2',
     connectedUsers: [],
     messages: []
   },
   'room3': {
+    roomName: 'room3',
     connectedUsers: [],
     messages: []
   },
@@ -34,6 +40,7 @@ app.post('/:roomName', (req, res) => {
     return;
   }
   rooms[roomName] = {
+    roomName,
     connectedUsers: [],
     messages: []
   }
@@ -47,9 +54,13 @@ app.post('/:roomName', (req, res) => {
 app.get('/:roomName', (req, res) => {
   const { roomName } = req.params;
   const { username } = req.query;
-
-  console.log(roomName);
-  console.log(username);
+  // if(rooms[roomName].connectedUsers.includes(username)) {
+  //   res.redirect('/');
+  // } else {
+    rooms[roomName].connectedUsers.push(username);
+    console.log(rooms);
+    res.render('pages/room', { room: rooms[roomName] });
+  // }
 })
 
 app.get('/', (req, res) => {

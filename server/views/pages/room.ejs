@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%=room.roomName%></title>
+  <link rel="stylesheet" href="/css/room.css">
+</head>
+<body>
+  <div id="container">
+    <header>
+      <h1>
+        <%=room.roomName%>
+      </h1>
+    </header>
+    <main>
+      <div class="messages-container">
+        <%
+        room.messages.forEach(m => {
+          %>
+            <div class="message">
+              <div class="message-sender">
+                <%= m.sender %>:
+              </div>
+              <div class="message-content">
+                <%= m.message %>
+              </div>
+            </div>
+          <%
+        })
+        %>
+      </div>
+      <div class="connected-users-container">
+        <%
+          room.connectedUsers.forEach(user => {
+        %>
+            <div class="user">
+              <%= user %>
+            </div>
+        <%
+          })
+        %>
+      </div>
+    </main>
+  </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/room.js"></script>
+</body>
+</html>
