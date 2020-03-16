@@ -11,7 +11,20 @@ app.set('views', path.join(__dirname, '/views'))
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-const rooms = {}
+const rooms = {
+  'room1' : {
+    connectedUsers: [],
+    messages: []
+  },
+  'room2': {
+    connectedUsers: [],
+    messages: []
+  },
+  'room3': {
+    connectedUsers: [],
+    messages: []
+  },
+}
 
 app.post('/:roomName', (req, res) => {
   const { roomName } = req.params;

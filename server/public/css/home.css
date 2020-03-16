@@ -27,6 +27,29 @@
   background-color: slategray;
   color: white;
 }
+#create-room-form button:hover {
+  color:#00A0C6;
+  cursor: pointer;
+}
 #error-message {
   color: red;
+}
+.room {
+  padding: 20px;
+  max-width: 50%;
+  margin: auto;
+  border: 2px solid lightblue;
+  background-color: slategray;
+  color: white;
+  border-radius: 20px;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+a:hover
+{
+     color:#00A0C6;
+     text-decoration:none;
+     cursor:pointer;
 }
