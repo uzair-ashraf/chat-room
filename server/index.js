@@ -44,7 +44,13 @@ app.post('/:roomName', (req, res) => {
   io.emit('room-created', {roomName})
 })
 
-// app.get('/:roomName')
+app.get('/:roomName', (req, res) => {
+  const { roomName } = req.params;
+  const { username } = req.query;
+
+  console.log(roomName);
+  console.log(username);
+})
 
 app.get('/', (req, res) => {
     res.render('pages/index', { rooms });

@@ -30,6 +30,18 @@ createRoomForm.addEventListener('submit', async e => {
   }
 })
 
+userNameForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = new FormData(e.target);
+  const userName = form.get('username');
+
+  try {
+    const response = await fetch(`/${selectedRoom}?username=${userName}`)
+  } catch(err) {
+    console.error(err);
+  }
+})
+
 cancelUserNameSelection.addEventListener('click', () => {
   userNameModal.classList.add('hidden');
   selectedRoom = null;
