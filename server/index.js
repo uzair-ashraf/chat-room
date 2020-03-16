@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 
 app.set('view engine', 'ejs');
 
@@ -28,14 +30,25 @@ app.post('/:roomName', (req, res) => {
   const { roomName } = req.params;
   console.log(roomName);
   if(rooms[roomName]) {
-    res.status(409).json({success: false})
+    res.status(409).json({success: false});
+    return;
   }
+  rooms[roomName] = {
+    connectedUsers: [],
+    messages: []
+  }
+  res.json({
+    success: true,
+    roomName
+  })
 })
+
+// app.get('/:roomName')
 
 app.get('/', (req, res) => {
     res.render('pages/index', { rooms });
 })
 
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log('server is running on port 3000');
 })

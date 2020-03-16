@@ -24,13 +24,16 @@
       </div>
       <div class="rooms-container">
         <% Object.keys(rooms).forEach(room => { %>
-          <div>
-            <%= room %>
+          <div class="room">
+            <a href=<%= room %>>
+              <%= room %>
+            </a>
           </div>
         <% }) %>
       </div>
     </main>
   </div>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="/js/home.js"></script>
 </body>
 </html>

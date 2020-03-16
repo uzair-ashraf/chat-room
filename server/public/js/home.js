@@ -1,5 +1,6 @@
 const createRoomForm = document.getElementById('create-room-form');
 const errorMessage = document.getElementById('error-message');
+const roomsContainer = document.querySelector('.rooms-container');
 
 createRoomForm.addEventListener('submit', async e => {
   e.preventDefault();
@@ -15,7 +16,20 @@ createRoomForm.addEventListener('submit', async e => {
       return;
     }
     const parsedResponse = await response.json();
+    if(parsedResponse.success) {
+      addRoom(parsedResponse.roomName);
+    }
   } catch(err) {
     console.error(err);
   }
 })
+
+function addRoom(roomName) {
+  const room = document.createElement('div');
+  room.className = "room";
+  const anchor = document.createElement('a');
+  anchor.href = `/${roomName}`;
+  anchor.textContent = roomName;
+  room.appendChild(anchor);
+  roomsContainer.appendChild(room);
+}
