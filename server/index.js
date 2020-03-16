@@ -41,6 +41,7 @@ app.post('/:roomName', (req, res) => {
     success: true,
     roomName
   })
+  io.emit('room-created', {roomName})
 })
 
 // app.get('/:roomName')

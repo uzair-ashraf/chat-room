@@ -2,6 +2,10 @@ const createRoomForm = document.getElementById('create-room-form');
 const errorMessage = document.getElementById('error-message');
 const roomsContainer = document.querySelector('.rooms-container');
 
+const socket = io('//:3000');
+
+socket.on('room-created', addRoom);
+
 createRoomForm.addEventListener('submit', async e => {
   e.preventDefault();
   const form = new FormData(e.target);
@@ -24,7 +28,8 @@ createRoomForm.addEventListener('submit', async e => {
   }
 })
 
-function addRoom(roomName) {
+function addRoom( {roomName} ) {
+  console.log("firing")
   const room = document.createElement('div');
   room.className = "room";
   const anchor = document.createElement('a');
