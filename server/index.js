@@ -74,6 +74,11 @@ roomsNamespace.on('connection', socket => {
       const {room, user} = userData;
       delete rooms[room].connectedUsers[user];
       socket.to(room).broadcast.emit('user-disconnected', user);
+      socket.leave(room);
+      if(!Object.keys(rooms[room].connectedUsers).length) {
+        delete rooms[room];
+        io.emit('room-closed', room);
+      }
     })
   })
 

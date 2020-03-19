@@ -12,6 +12,8 @@ const socket = io('//:3000');
 
 socket.on('room-created', addRoom);
 
+socket.on('room-closed', removeRoom);
+
 createRoomForm.addEventListener('submit', async e => {
   e.preventDefault();
   const form = new FormData(e.target);
@@ -67,4 +69,11 @@ function addRoom( {roomName} ) {
   room.className = "room";
   room.textContent = roomName;
   roomsContainer.appendChild(room);
+}
+
+function removeRoom(roomName) {
+  const roomList = Array.from(roomsContainer.children);
+
+  const room = roomList.find(r => r.innerText === roomName);
+  room.remove();
 }
