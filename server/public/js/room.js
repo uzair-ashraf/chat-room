@@ -19,6 +19,17 @@ room.on('user-connected', username => {
   messagesContainer.appendChild(splashMessage);
 })
 
+room.on('user-disconnected', user => {
+  const usersList = Array.from(usersContainer.children);
+  const userElement = usersList.find(u => u.innerText === user);
+  userElement.remove();
+
+  const splashMessage = document.createElement("div");
+  splashMessage.className = 'splash-message disconnect';
+  splashMessage.textContent = `${user} has disconnected!`;
+  messagesContainer.appendChild(splashMessage);
+})
+
 room.on('new-message', createMessage);
 
 messageForm.addEventListener('submit', e => {

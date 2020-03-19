@@ -34,6 +34,12 @@ app.post('/rooms/:roomName', (req, res) => {
 app.get('/rooms/:roomName', (req, res) => {
   const { roomName } = req.params;
   const { username } = req.query;
+
+  if (!rooms[roomName]) {
+    res.redirect('/');
+    return;
+  }
+
   if(rooms[roomName].connectedUsers[username]) {
     res.redirect('/');
   } else {
@@ -62,4 +68,24 @@ roomsNamespace.on('connection', socket => {
       rooms[room].messages.push({sender: name, message})
       socket.to(room).broadcast.emit('new-message', name, message);
     })
+    socket.on('disconnect', () => {
+      const userData = findUserData(socket.id);
+      if(!userData) return;
+      const {room, user} = userData;
+      delete rooms[room].connectedUsers[user];
+      socket.to(room).broadcast.emit('user-disconnected', user);
+    })
   })
+
+  //I really don't like how this looks, I can refactor the rooms variable
+  //and that should fix this, but its on the list!
+  function findUserData(socketId) {
+    for(const room in rooms) {
+      const {connectedUsers} = rooms[room];
+      for(const user in connectedUsers) {
+        if(connectedUsers[user].socketId === socketId) {
+          return {room, user}
+        }
+      }
+    }
+  }
