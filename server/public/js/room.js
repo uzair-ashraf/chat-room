@@ -12,6 +12,11 @@ room.on('user-connected', username => {
   user.className = 'user';
   user.textContent = username;
   usersContainer.appendChild(user);
+
+  const splashMessage = document.createElement("div");
+  splashMessage.className = 'splash-message';
+  splashMessage.textContent = `${username} has connected!`;
+  messagesContainer.appendChild(splashMessage);
 })
 
 room.on('new-message', createMessage);

@@ -52,8 +52,13 @@ button {
 .message-sender {
   font-weight: 600;
 }
-.message {
+.message, .splash-message {
   padding: 10px;
   border-radius: 11px;
   margin: 7px;
+}
+.splash-message {
+  text-align: center;
+  color: white;
+  background-color: cadetblue
 }
