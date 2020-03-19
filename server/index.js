@@ -15,7 +15,6 @@ const rooms = {}
 
 app.post('/rooms/:roomName', (req, res) => {
   const { roomName } = req.params;
-  console.log(roomName);
   if(rooms[roomName]) {
     res.status(409).json({success: false});
     return;
@@ -35,13 +34,12 @@ app.post('/rooms/:roomName', (req, res) => {
 app.get('/rooms/:roomName', (req, res) => {
   const { roomName } = req.params;
   const { username } = req.query;
-  // if(rooms[roomName].connectedUsers.includes(username)) {
-  //   res.redirect('/');
-  // } else {
+  if(rooms[roomName].connectedUsers[username]) {
+    res.redirect('/');
+  } else {
     rooms[roomName].connectedUsers[username] = {username};
-    console.log(rooms);
     res.render('pages/room', { room: rooms[roomName], user: {username, roomName}});
-  // }
+  }
 })
 
 app.get('/', (req, res) => {
@@ -52,17 +50,16 @@ server.listen(3000, () => {
   console.log('server is running on port 3000');
 })
 
-// io.on('connection', socket => {
-//   console.log('new user connected');
-// })
-
 const roomsNamespace = io.of('/rooms')
 
 roomsNamespace.on('connection', socket => {
     socket.on('new-user-connected', (room, name) => {
-      console.log(room, name)
       socket.join(room);
       rooms[room].connectedUsers[name].socketId = socket.id;
       socket.to(room).broadcast.emit('user-connected', name)
+    })
+    socket.on('sent-message', (room, name, message) => {
+      rooms[room].messages.push({sender: name, message})
+      socket.to(room).broadcast.emit('new-message', name, message);
     })
   })

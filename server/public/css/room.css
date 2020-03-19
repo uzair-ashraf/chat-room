@@ -7,6 +7,8 @@ body {
 main {
   display: flex;
   height: 72vh;
+  border: 2px solid lightblue;
+  border-radius: 20px;
 }
 input {
   border-radius: 10px;
@@ -28,15 +30,30 @@ button {
 }
 .messages-container {
   flex: 80;
-  display: flex;
+  max-width: 80%;
   text-align: left;
-  border: 2px solid blue;
+  overflow-wrap: break-word;
+  padding: 9px;
+  border-right: 2px solid #eeeeee;
+  overflow: auto;
+}
+.message:nth-child(odd) {
+  background-color: #d2d9e0;
+}
+.message:nth-child(even) {
+  background-color: lightblue;
 }
 .connected-users-container {
   flex: 20;
-  border: 2px solid red;
+  max-width: 20%;
+  overflow-wrap: break-word;
+  padding: 2px
 }
-.send-message {
-  flex: 1;
-  border: 3px solid green;
+.message-sender {
+  font-weight: 600;
+}
+.message {
+  padding: 10px;
+  border-radius: 11px;
+  margin: 7px;
 }

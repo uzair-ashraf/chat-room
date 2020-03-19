@@ -26,10 +26,10 @@ const roomName = "<%= user.roomName %>";
         room.messages.forEach(m => {
           %>
             <div class="message">
-              <div class="message-sender">
-                <%= m.sender %>:
-              </div>
               <div class="message-content">
+              <span class="message-sender">
+                <%= m.sender %>:&nbsp;
+              </span>
                 <%= m.message %>
               </div>
             </div>
@@ -54,7 +54,7 @@ const roomName = "<%= user.roomName %>";
     </main>
     <div class="send-message">
       <form id="send-message-form">
-        <input type="text" />
+        <input type="text" name="message" />
         <button type="submit">Send</button>
       </form>
     </div>
