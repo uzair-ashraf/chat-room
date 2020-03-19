@@ -34,18 +34,9 @@ createRoomForm.addEventListener('submit', async e => {
 
 userNameForm.addEventListener('submit', e => {
   e.preventDefault();
-  // const form = new FormData(e.target);
-  // const userName = form.get('username');
   e.target.action = `/rooms/${selectedRoom}`;
   console.dir(e.target);
   e.target.submit();
-  // e.target.submit();
-  // window.location.replace(`/${selectedRoom}/?username=${userName}`)
-  // try {
-  //   const response = await fetch(`/${selectedRoom}?username=${userName}`)
-  // } catch(err) {
-  //   console.error(err);
-  // }
 })
 
 cancelUserNameSelection.addEventListener('click', () => {
@@ -61,7 +52,6 @@ roomsContainer.addEventListener('click', e => {
 })
 
 function addRoom( {roomName} ) {
-  console.log("firing")
   if(roomsMessage) {
     roomsMessage.remove();
   }

@@ -49,15 +49,6 @@ button:hover {
      text-decoration:none;
      cursor:pointer;
 }
-/*
-.username-modal-container {
-  position: absolute;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 .username-modal {
   margin: auto;
   position: absolute;
