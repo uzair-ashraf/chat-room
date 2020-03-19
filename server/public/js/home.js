@@ -17,7 +17,7 @@ createRoomForm.addEventListener('submit', async e => {
   const form = new FormData(e.target);
   const roomName = form.get('room-name');
   try {
-    const response = await fetch(`/${roomName}`, {
+    const response = await fetch(`/rooms/${roomName}`, {
       method: 'POST'
     })
     if(!response.ok && response.status === 409) {
@@ -34,7 +34,7 @@ userNameForm.addEventListener('submit', e => {
   e.preventDefault();
   // const form = new FormData(e.target);
   // const userName = form.get('username');
-  e.target.action = `/${selectedRoom}`;
+  e.target.action = `/rooms/${selectedRoom}`;
   console.dir(e.target);
   e.target.submit();
   // e.target.submit();

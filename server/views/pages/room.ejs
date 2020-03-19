@@ -7,6 +7,12 @@
   <title><%=room.roomName%></title>
   <link rel="stylesheet" href="/css/room.css">
 </head>
+<script>
+
+const username = "<%= user.username %>";
+const roomName = "<%= user.roomName %>";
+
+</script>
 <body>
   <div id="container">
     <header>
@@ -33,7 +39,7 @@
       </div>
       <div class="connected-users-container">
         <%
-          room.connectedUsers.forEach(user => {
+          Object.keys(room.connectedUsers).forEach(user => {
         %>
             <div class="user">
               <%= user %>

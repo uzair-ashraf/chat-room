@@ -11,28 +11,9 @@ app.set('views', path.join(__dirname, '/views'))
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-const rooms = {
-  'room1' : {
-    roomName: 'room1',
-    connectedUsers: ['thebearingedge', 'danewavy'],
-    messages: [
-      {sender: 'thebearingedge', message: 'sup bro'},
-      {sender: 'danewavy', message: 'nothin just on wave'}
-    ]
-  },
-  'room2': {
-    roomName: 'room2',
-    connectedUsers: [],
-    messages: []
-  },
-  'room3': {
-    roomName: 'room3',
-    connectedUsers: [],
-    messages: []
-  },
-}
+const rooms = {}
 
-app.post('/:roomName', (req, res) => {
+app.post('/rooms/:roomName', (req, res) => {
   const { roomName } = req.params;
   console.log(roomName);
   if(rooms[roomName]) {
@@ -41,7 +22,7 @@ app.post('/:roomName', (req, res) => {
   }
   rooms[roomName] = {
     roomName,
-    connectedUsers: [],
+    connectedUsers: {},
     messages: []
   }
   res.json({
@@ -51,15 +32,15 @@ app.post('/:roomName', (req, res) => {
   io.emit('room-created', {roomName})
 })
 
-app.get('/:roomName', (req, res) => {
+app.get('/rooms/:roomName', (req, res) => {
   const { roomName } = req.params;
   const { username } = req.query;
   // if(rooms[roomName].connectedUsers.includes(username)) {
   //   res.redirect('/');
   // } else {
-    rooms[roomName].connectedUsers.push(username);
+    rooms[roomName].connectedUsers[username] = {username};
     console.log(rooms);
-    res.render('pages/room', { room: rooms[roomName] });
+    res.render('pages/room', { room: rooms[roomName], user: {username, roomName}});
   // }
 })
 
@@ -70,3 +51,18 @@ app.get('/', (req, res) => {
 server.listen(3000, () => {
   console.log('server is running on port 3000');
 })
+
+// io.on('connection', socket => {
+//   console.log('new user connected');
+// })
+
+const roomsNamespace = io.of('/rooms')
+
+roomsNamespace.on('connection', socket => {
+    socket.on('new-user-connected', (room, name) => {
+      console.log(room, name)
+      socket.join(room);
+      rooms[room].connectedUsers[name].socketId = socket.id;
+      socket.to(room).broadcast.emit('user-connected', name)
+    })
+  })
