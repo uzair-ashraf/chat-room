@@ -38,6 +38,9 @@ const roomName = "<%= user.roomName %>";
         %>
       </div>
       <div class="connected-users-container">
+        <div class="users-heading">
+          <h3>Users:</h3>
+        </div>
         <%
           Object.keys(room.connectedUsers).forEach(user => {
         %>
@@ -49,6 +52,12 @@ const roomName = "<%= user.roomName %>";
         %>
       </div>
     </main>
+    <div class="send-message">
+      <form id="send-message-form">
+        <input type="text" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
   </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/room.js"></script>

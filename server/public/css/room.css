@@ -6,12 +6,37 @@ body {
 }
 main {
   display: flex;
+  height: 72vh;
+}
+input {
+  border-radius: 10px;
+  font-size: 1.1rem;
+  padding: 8px;
+  margin: 4px 0;
+  border-style: none;
+  border: 2px solid lightblue;
+  width: 57%;
+}
+button {
+  border-radius: 10px;
+  font-size: 1.1rem;
+  padding: 8px;
+  border-style: none;
+  border: 2px solid lightblue;
+  background-color: slategray;
+  color: white;
 }
 .messages-container {
-  max-width: 80%;
+  flex: 80;
   display: flex;
   text-align: left;
+  border: 2px solid blue;
 }
 .connected-users-container {
-  max-width: 20%;
+  flex: 20;
+  border: 2px solid red;
+}
+.send-message {
+  flex: 1;
+  border: 3px solid green;
 }
