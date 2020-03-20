@@ -8,7 +8,7 @@ const cancelUserNameSelection = document.querySelector(".cancel-username");
 
 let selectedRoom = null;
 
-const socket = io('//:3000');
+const socket = io('/');
 
 socket.on('room-created', addRoom);
 

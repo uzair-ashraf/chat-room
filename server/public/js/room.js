@@ -1,5 +1,5 @@
 
-const room = io.connect('//:3000/rooms');
+const room = io.connect('/rooms');
 
 room.emit('new-user-connected', roomName, username);
 
