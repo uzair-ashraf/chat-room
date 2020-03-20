@@ -60,11 +60,13 @@ const roomsNamespace = io.of('/rooms')
 
 roomsNamespace.on('connection', socket => {
     socket.on('new-user-connected', (room, name) => {
+      if (!rooms[room]) return;
       socket.join(room);
       rooms[room].connectedUsers[name].socketId = socket.id;
       socket.to(room).broadcast.emit('user-connected', name)
     })
     socket.on('sent-message', (room, name, message) => {
+      if (!rooms[room]) return;
       rooms[room].messages.push({sender: name, message})
       socket.to(room).broadcast.emit('new-message', name, message);
     })

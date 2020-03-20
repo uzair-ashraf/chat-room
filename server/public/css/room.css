@@ -36,6 +36,7 @@ button {
   padding: 9px;
   border-right: 2px solid #eeeeee;
   overflow: auto;
+  scroll-behavior: smooth;
 }
 .message:nth-child(odd) {
   background-color: #d2d9e0;
